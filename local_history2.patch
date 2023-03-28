@@ -1,0 +1,17 @@
+Index: src/minesweeper/Smine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/minesweeper/Smine.java b/src/minesweeper/Smine.java
+--- a/src/minesweeper/Smine.java	(date 1620897911663)
++++ b/src/minesweeper/Smine.java	(date 1620897911663)
+@@ -29,7 +29,7 @@
+         for (int i = 0; i < xCount; i++) {
+             for (int j = 0; j < yCount; j++) {
+                 JButton btn = new JButton();
+-                btn.setPreferredSize(new Dimension(40,40));
++                btn.setSize(new Dimension(40,40));
+                 btn.addActionListener(listener1);
+                 con.add(btn);
+                 btns[i][j] = btn;

@@ -1,0 +1,48 @@
+Index: src/minesweeper/Login.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/minesweeper/Login.java b/src/minesweeper/Login.java
+--- a/src/minesweeper/Login.java	(date 1620629125881)
++++ b/src/minesweeper/Login.java	(date 1620629125881)
+@@ -67,7 +67,7 @@
+         };
+         JPanel pho4 = new JPanel() {
+             protected void paintComponent(Graphics g) {
+-                ImageIcon icon = new ImageIcon(getClass().getResource("/art/3.jpg"));
++                ImageIcon icon = new ImageIcon(getClass().getResource("/art/4.jpg"));
+                 Image img = icon.getImage();
+                 g.drawImage(img, 0, 0, icon.getIconWidth(), icon.getIconHeight(), icon.getImageObserver());
+                 this.setSize(icon.getIconWidth(), icon.getIconHeight());
+@@ -75,7 +75,7 @@
+         };
+         JPanel pho5 = new JPanel() {
+             protected void paintComponent(Graphics g) {
+-                ImageIcon icon = new ImageIcon(getClass().getResource("/art/3.jpg"));
++                ImageIcon icon = new ImageIcon(getClass().getResource("/art/5.jpg"));
+                 Image img = icon.getImage();
+                 g.drawImage(img, 0, 0, icon.getIconWidth(), icon.getIconHeight(), icon.getImageObserver());
+                 this.setSize(icon.getIconWidth(), icon.getIconHeight());
+@@ -83,7 +83,7 @@
+         };
+         JPanel pho6 = new JPanel() {
+             protected void paintComponent(Graphics g) {
+-                ImageIcon icon = new ImageIcon(getClass().getResource("/art/3.jpg"));
++                ImageIcon icon = new ImageIcon(getClass().getResource("/art/6.jpg"));
+                 Image img = icon.getImage();
+                 g.drawImage(img, 0, 0, icon.getIconWidth(), icon.getIconHeight(), icon.getImageObserver());
+                 this.setSize(icon.getIconWidth(), icon.getIconHeight());
+@@ -99,9 +99,9 @@
+         plp1.add(pho1);
+         plp1.add(pho2);
+         plp1.add(pho3);
+-        plp2.add(pho1);
+-        plp2.add(pho2);
+-        plp2.add(pho3);
++        plp2.add(pho4);
++        plp2.add(pho5);
++        plp2.add(pho6);
+ 
+         pn1.setHorizontalAlignment(SwingConstants.CENTER);  //设置该组件的对齐方式为向右对齐
+         pn2.setHorizontalAlignment(SwingConstants.CENTER);

@@ -1,0 +1,196 @@
+Index: src/Smine.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Smine.java b/src/minesweeper/Smine.java
+rename from src/Smine.java
+rename to src/minesweeper/Smine.java
+--- a/src/Smine.java	(date 0)
++++ b/src/minesweeper/Smine.java	(date 1620897911663)
+@@ -1,98 +1,131 @@
++package minesweeper;
++
++import controller.GameController;
++
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+ import java.util.Random;
+ 
+-public class Smine implements ActionListener {
+-    int[][] data = new int[10][10];
+-    JButton[][] btns = new JButton[10][10];
+-    JFrame frame=new JFrame();
++public class Smine extends JPanel  {
++    public int xCount=Login.xCount;
++    public int yCount=Login.yCount;
++    public int minCount=Login.mineCount;
+ 
++
++    int[][] data = new int[xCount][yCount];
++    JButton[][] btns = new JButton[xCount][yCount];
+     public Smine() {
+-        frame.setSize(500,600);
+-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+-        frame.setLayout(new BorderLayout());
++        this.setLayout(new GridLayout(yCount,xCount));
+         setButtons();
+-        addlei();
+-        frame.setVisible(true);
++        addMine();
++        this.setVisible(true);
+     }
+ 
+     private void setButtons() {
+         Container con = new Container();
+-        con.setLayout(new GridLayout(10, 10));
+-        for (int i = 0; i < 10; i++) {
+-            for (int j = 0; j < 10; j++) {
++        con.setLayout(new GridLayout(xCount, yCount));
++        for (int i = 0; i < xCount; i++) {
++            for (int j = 0; j < yCount; j++) {
+                 JButton btn = new JButton();
+-                btn.addActionListener(this);
++                btn.setSize(new Dimension(40,40));
++                btn.addActionListener(listener1);
+                 con.add(btn);
+                 btns[i][j] = btn;
+             }
+         }
+-        frame.add(con,BorderLayout.CENTER);
++        this.add(con,BorderLayout.CENTER);
+     }
+ 
+-    private void addlei() {
++    private void addMine() {
+         int count1=1;
+         produceMine();
+         //计算周边雷
+-        for (int i = 0; i < 10; i++) {
+-            for (int j = 0; j < 10; j++) {
++        for (int i = 0; i < xCount; i++) {
++            for (int j = 0; j < yCount; j++) {
+                 if (data[i][j] == 0) {
+                     int count = 0;
+-                    if (i != 0 && j != 0 && data[i - 1][j - 1] == -1) count++;        //左上
+-                    if (i != 0 && data[i - 1][j] == -1) count++;        //上
+-                    if (i != 0 && j <= 10- 2 && data[i - 1][j + 1] == -1) count++;        //右上
+-                    if (j != 0 && data[i][j - 1] == -1) count++;        //左
+-                    if (j <= 10 - 2 && data[i][j + 1] == -1) count++;        //右
+-                    if (i <= 10 - 2 && j != 0 && data[i + 1][j - 1] == -1) count++;        //左下
+-                    if (i <= 10 - 2 && data[i + 1][j] == -1) count++;        //下
+-                    if (i <= 10 - 2 && j <= 10. - 2 && data[i + 1][j + 1] == -1)
+-                        count++;        //右下
+-                    data[i][j] = count;
+-                }
+-                if (data[i][j] == -1) {
+-                    if (i != 0 && j != 0 && data[i - 1][j - 1] == -1) count1++;        //左上
+-                    if (i != 0 && data[i - 1][j] == -1) count1++;        //上
+-                    if (i != 0 && j <= 10- 2 && data[i - 1][j + 1] == -1) count1++;        //右上
+-                    if (j != 0 && data[i][j - 1] == -1) count1++;        //左
+-                    if (j <= 10 - 2 && data[i][j + 1] == -1) count1++;        //右
+-                    if (i <= 10 - 2 && j != 0 && data[i + 1][j - 1] == -1) count1++;        //左下
+-                    if (i <= 10 - 2 && data[i + 1][j] == -1) count1++;        //下
+-                    if (i <= 10 - 2 && j <= 10. - 2 && data[i + 1][j + 1] == -1)count1++;//右下
+-                }
+-            }
+-        }
+-        if(count1==9){
+-            addlei();
+-        }
++                    count = getCount(i, j, count);
++                    data[i][j] = count;
++                }
++                if (data[i][j] == -1) {
++                    count1 = getCount(i, j, count1);
++                }
++            }
++        }
++        if(count1==9){
++            addMine();
++        }
++    }
++
++    private int getCount(int i, int j, int count) {
++        if (i != 0 && j != 0 && data[i - 1][j - 1] == -1) count++;        //左上
++        if (i != 0 && data[i - 1][j] == -1) count++;        //上
++        if (i != 0 && j <= 10- 2 && data[i - 1][j + 1] == -1) count++;        //右上
++        if (j != 0 && data[i][j - 1] == -1) count++;        //左
++        if (j <= 10 - 2 && data[i][j + 1] == -1) count++;        //右
++        if (i <= 10 - 2 && j != 0 && data[i + 1][j - 1] == -1) count++;        //左下
++        if (i <= 10 - 2 && data[i + 1][j] == -1) count++;        //下
++        if (i <= 10 - 2 && j <= 10. - 2 && data[i + 1][j + 1] == -1)
++            count++;        //右下
++        return count;
+     }
++
+     private void produceMine(){
+         Random random = new Random();
+-        for (int i = 0; i < 20; ) {
+-            int x = random.nextInt(10);
+-            int y = random.nextInt(10);
++        for (int i = 0; i < minCount; ) {
++            int x = random.nextInt(xCount-1);
++            int y = random.nextInt(yCount-1);
+             if (data[x][y] != -1) {
+                 data[x][y] = -1;
+                 i++;
+             }
+         }
+     }
+-
+-    @Override
++    ActionListener listener1 = new ActionListener() {
++        @Override
++        public void actionPerformed(ActionEvent e) {
++
++
++
++        JButton btn = (JButton) e.getSource();
++        for (int i = 0; i < xCount; i++) {
++            for (int j = 0; j < yCount; j++) {
++                if (btn.equals(btns[i][j])) {
++                    if(data[i][j]==-1){
++                        GameController.onTurn.costScore();
++                    }
++                    open0(i,j);
++
++                }
++            }
++        }
++        MainFrame.controller.nextTurn();
++        MainFrame.scoreBoard1.update();
++        MainFrame.scoreBoard2.update();
++
++    }};
++
++/*    @Override
+     public void actionPerformed(ActionEvent e) {
+         JButton btn = (JButton) e.getSource();
+         for (int i = 0; i < 10; i++) {
+             for (int j = 0; j < 10; j++) {
+                 if (btn.equals(btns[i][j])) {
++                    if(data[i][j]==-1){
++                        GameController.onTurn.costScore();
++                    }
+                     open0(i,j);
+-                    return;
+-                }
+ 
+-            }
+-
+-        }
+-    }
++                }
++            }
++        }
++        MainFrame.controller.nextTurn();
++        MainFrame.scoreBoard1.update();
++        MainFrame.scoreBoard2.update();
++
++    }*/
+ 
+     private void open0(int i, int j) {
+         JButton btn = btns[i][j];
